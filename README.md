@@ -1,5 +1,4 @@
-# Automate the Boring Stuff with Python
-## Written by Al Sweigart
+## Automate the Boring Stuff with Python by Al Sweigart
 
 https://automatetheboringstuff.com/
 
