@@ -5,8 +5,14 @@ import pyperclip
 
 PASSWORDS = {}
 
+
+def generate_password():
+    """Generate strong password for account."""
+
+
 def add_account(account_name, user_name, password):
-    """Add account to PASSWORD dictionary and generate random password."""
+    """Add account to PASSWORD dictionary."""
+
 
 def main(script):
     try:
