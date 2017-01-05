@@ -6,15 +6,6 @@ import pyperclip
 PASSWORDS = {'account_name': ['user_name', 'password']}
 
 
-def generate_password():
-    """Generate strong password for account."""
-
-
-def add_account(account_name, user_name, password):
-    """Add account to PASSWORD dictionary."""
-    return PASSWORDS[account_name] = [user_name, password]
-
-
 def main(script):
     try:
         account = sys.argv[1]
