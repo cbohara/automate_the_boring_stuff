@@ -3,7 +3,7 @@
 import sys
 import pyperclip
 
-PASSWORDS = {}
+PASSWORDS = {'account_name': ['user_name', 'password']}
 
 
 def generate_password():
@@ -12,6 +12,7 @@ def generate_password():
 
 def add_account(account_name, user_name, password):
     """Add account to PASSWORD dictionary."""
+    return PASSWORDS[account_name] = [user_name, password]
 
 
 def main(script):
