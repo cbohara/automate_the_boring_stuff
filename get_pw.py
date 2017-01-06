@@ -1,3 +1,6 @@
+"""Script for password retrieval from basic dictionary with key specifying the
+account name and a list containing the username and password."""
+
 #! /usr/bin/env python3
 
 import sys
@@ -5,6 +8,7 @@ import pyperclip
 
 
 PASSWORDS = {'account': ['user', 'password']}
+
 
 def main(script):
     try:
