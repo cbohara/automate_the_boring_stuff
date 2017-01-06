@@ -3,14 +3,14 @@
 import sys
 import pyperclip
 
-PASSWORDS = {'account_name': ['user_name', 'password']}
 
+PASSWORDS = {'account': ['user', 'password']}
 
 def main(script):
     try:
         account = sys.argv[1]
     except IndexError:
-        print('specify account name - python pw.py [account]')
+        print('specify account name - python get_pw.py [account name]')
     else:
         if account in PASSWORDS.keys():
             pyperclip.copy(PASSWORDS[account][1])
