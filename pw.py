@@ -12,7 +12,7 @@ def main(script):
     except IndexError:
         print('specify account name - python pw.py [account]')
     else:
-        if account in PASSWORDS:
+        if account in PASSWORDS.keys():
             pyperclip.copy(PASSWORDS[account][1])
             print('Password for ' + account + ' copied to clipboard.')
         else:
