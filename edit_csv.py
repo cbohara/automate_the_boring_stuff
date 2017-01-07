@@ -9,6 +9,7 @@ def partial_url(row, index):
             return True
     return False
 
+
 def prepend_url(string):
     """Return full url."""
     s_to_l = list(string)
