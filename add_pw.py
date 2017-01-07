@@ -1,5 +1,3 @@
-"""Add new account to pw.csv and generate a strong password, which will be added
-to clipboard to make it easier to make new login accounts."""
 import sys
 import csv
 import pyperclip
@@ -15,6 +13,7 @@ def generate_pw():
     return password
 
 def main(script):
+    """Add new account to pw.csv and generate a strong password."""
     try:
         # ensure user entered account name and user name
         account_name = sys.argv[1]
