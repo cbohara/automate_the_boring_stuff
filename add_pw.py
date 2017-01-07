@@ -4,6 +4,7 @@ import pyperclip
 import random
 import string
 
+
 def generate_pw():
     """Generate strong password to add to csv file and clipboard."""
     chars = string.ascii_letters + string.digits + '!@#$%^&*()'
@@ -12,6 +13,7 @@ def generate_pw():
     print('Password copied to clipboard.')
     return password
 
+
 def main(script):
     """Add new account to pw.csv and generate a strong password."""
     try:
@@ -19,7 +21,7 @@ def main(script):
         account_name = sys.argv[1]
         user_name = sys.argv[2]
     except IndexError:
-        print('specify account name and user name- python add_pw.py [account name] [user name]')
+        print('python add_pw.py [account name] [user name]')
     else:
         # read in csv file
         pw_file = open('data/pw.csv')
