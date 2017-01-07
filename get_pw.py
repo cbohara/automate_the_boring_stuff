@@ -20,7 +20,7 @@ def main(script):
                 pyperclip.copy(row[2])
                 print('Password for ' + account_name + ' copied to clipboard.')
             else:
-                print('There is no account named ' + account)
+                print('There is no account named ' + account_name)
 
 
 if __name__ == '__main__':
