@@ -1,5 +1,4 @@
-"""Script for password retrieval from basic dictionary with key specifying the
-account name and a list containing the username and password."""
+"""Retrieve password for account."""
 import sys
 import csv
 import pyperclip
