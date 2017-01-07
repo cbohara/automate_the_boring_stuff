@@ -12,7 +12,7 @@ def prepend_url(string):
 
 def main(script):
     # read in csv file
-    original_file = open('customers_original.csv')
+    original_file = open('data/customers_edited.csv')
     original_object = csv.reader(original_file)
 
     # edit content and append to output list
@@ -36,7 +36,7 @@ def main(script):
         output_csv.append(row)
 
     # write edits to new file
-    with open('customers_edited.csv', 'w', newline='') as csvfile:
+    with open('data/customers_edited.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
 
         for row in output_csv:
