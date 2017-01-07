@@ -1,22 +1,27 @@
 """Script for password retrieval from basic dictionary with key specifying the
 account name and a list containing the username and password."""
 import sys
+import csv
 import pyperclip
 
 
 def main(script):
     try:
         # ensure user entered account name
-        account = sys.argv[1]
+        account_name = sys.argv[1]
     except IndexError:
         print('specify account name - python get_pw.py [account name]')
     else:
-
-        if account in PASSWORDS.keys():
-            pyperclip.copy(PASSWORDS[account][1])
-            print('Password for ' + account + ' copied to clipboard.')
-        else:
-            print('There is no account named ' + account)
+        # read in csv file
+        pw_file = open('data/pw.csv')
+        pw_object = csv.reader(pw_file)
+        # get password if account exists in pw.csv
+        for row in pw_object:
+            if row[0] == account_name:
+                pyperclip.copy(row[2])
+                print('Password for ' + account_name + ' copied to clipboard.')
+            else:
+                print('There is no account named ' + account)
 
 
 if __name__ == '__main__':
