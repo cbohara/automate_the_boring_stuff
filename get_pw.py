@@ -1,10 +1,10 @@
-"""Retrieve password for account."""
 import sys
 import csv
 import pyperclip
 
 
 def main(script):
+    """Retrieve password from csv file."""
     try:
         # ensure user entered account name
         account_name = sys.argv[1]
