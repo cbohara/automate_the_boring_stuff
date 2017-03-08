@@ -12,7 +12,7 @@ def main(script):
         print('specify account name - python get_pw.py [account name]')
     else:
         # read in csv file
-        pw_file = open('data/pw.csv')
+        pw_file = open('pw.csv')
         pw_object = csv.reader(pw_file)
         # get password if account exists in pw.csv
         for row in pw_object:
