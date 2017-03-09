@@ -22,7 +22,7 @@ def main(script):
     else:
         input_file = open(csv_file)
         file_reader = csv.reader(input_file)
-        #view_reader(file_reader)
+        view_reader(file_reader)
         create_matrix(file_reader)
 
 
