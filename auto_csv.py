@@ -2,6 +2,17 @@ import csv
 import sys
 
 
+def view_reader(file_reader):
+    for row in file_reader:
+        print("Row #" + str(file_reader.line_num) + " " + str(row))
+
+
+def create_matrix(file_reader):
+    matrix = list(file_reader)
+    for row, col in enumerate(matrix):
+        print(matrix[row])
+
+
 def main(script):
     """Read in csv file specified in command line argv."""
     try:
@@ -11,8 +22,8 @@ def main(script):
     else:
         input_file = open(csv_file)
         file_reader = csv.reader(input_file)
-        matrix = list(file_reader)
-        print(matrix)
+        #view_reader(file_reader)
+        create_matrix(file_reader)
 
 
 if __name__ == "__main__":
