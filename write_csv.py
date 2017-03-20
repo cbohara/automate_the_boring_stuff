@@ -17,7 +17,7 @@ def main(script):
         input_file = open(csv_file)
         file_reader = csv.reader(input_file)
         print_rows(file_reader)
-        print('testing')
+
 
 if __name__ == "__main__":
     main(sys.argv)
