@@ -42,7 +42,7 @@ def find_phone(text, phone_regex):
         # append phone number to master list
         matches.append(phone)
 
-   return matches
+    return matches
 
 
 def find_email(text, email_regex):
@@ -58,7 +58,7 @@ def find_email(text, email_regex):
     return matches
 
 
-def print_output(message, matches):
+def print_output(matches, message):
     if len(matches) > 0:
         pyperclip.copy('\n'.join(matches))
         print('Copied ' + message + ' to clipboard:')
@@ -82,8 +82,8 @@ def main(script):
     email_matches = find_email(text, email_regex)
 
     # join matches into a string to put on the OS clipboard
-    print_output(message='phone numbers', phone_matches)
-    print_output(message='email addresses', email_matches)
+    print_output(phone_matches, message='phone numbers')
+    print_output(email_matches, message='email addresses')
 
 
 if __name__ == "__main__":
