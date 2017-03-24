@@ -5,7 +5,6 @@ import re
 
 def compile_phone_regex():
     """Compile regex for phone numbers."""
-
     return re.compile(r'''(
         (\d{3}|\(\d{3}\))?                  # area code
         (\s|-|\.)?                          # separator
@@ -18,7 +17,6 @@ def compile_phone_regex():
 
 def compile_email_regex():
     """Compile regex for email addresses."""
-
     return re.compile(r'''(
         [a-zA-Z0-9._%+-]+                   # username
         @
