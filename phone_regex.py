@@ -15,16 +15,6 @@ def compile_phone_regex():
     )''', re.VERBOSE)
 
 
-def compile_email_regex():
-    """Compile regex for email addresses."""
-    return re.compile(r'''(
-        [a-zA-Z0-9._%+-]+                   # username
-        @
-        [a-zA-Z0-9._%+-]+                   # domain name
-        (\.[a-zA-Z]{2,4})                   # dot something
-    )''', re.VERBOSE)
-
-
 def find_phone(text, phone_regex):
     """Returns list of phone# found on OS clipboard."""
     # store matches
@@ -32,26 +22,16 @@ def find_phone(text, phone_regex):
 
     # find all phone#
     for groups in phone_regex.findall(text):
-        # store phone number as ###-###-####
-        phone = '-'.join([groups[1], groups[3], groups[5]])
+        # take into account phone numbers that do not have area code
+        if groups[1] == '':
+            phone = '-'.join([groups[3], groups[5]])
+        else:
+            phone = '-'.join([groups[1], groups[3], groups[5]])
         # add extension if provided
         if groups[8] != '':
             phone += ' x' + groups[8]
         # append phone number to master list
         matches.append(phone)
-
-    return matches
-
-
-def find_email(text, email_regex):
-    """Returns list of emails found on OS clipboard."""
-    # store matches
-    matches = []
-
-    # find all emails
-    for groups in email_regex.findall(text):
-        # find and append email
-        matches.append(groups[0])
 
     return matches
 
@@ -69,19 +49,15 @@ def main(script):
     """Finds phone#/emails from text on OS clipboard and returns only phone#/emails to clipboard."""
     # compile regex
     phone_regex = compile_phone_regex()
-    email_regex = compile_email_regex()
 
     # paste text from OS clipboard 
     text = str(pyperclip.paste())
 
     # list of found phone# in OS clipboard text
     phone_matches = find_phone(text, phone_regex)
-    # list of found emails in OS clipboard text
-    email_matches = find_email(text, email_regex)
 
     # join matches into a string to put on the OS clipboard
     print_output(phone_matches, message='phone numbers')
-    print_output(email_matches, message='email addresses')
 
 
 if __name__ == "__main__":
