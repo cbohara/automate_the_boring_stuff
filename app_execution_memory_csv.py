@@ -1,5 +1,24 @@
 import sys
 import csv
+from datetime import datetime as dt
+from datetime import timedelta
+
+
+def times(date, start_time, end_time, interval):
+    """Create list of times to be found in grafana csv."""
+    # convert input time strings into datetime object
+    start_time = dt.strptime(date + start_time, '%Y-%m-%d%H:%M:%S')
+    end_time = dt.strptime(date + end_time, '%Y-%m-%d%H:%M:%S')
+    # store time series
+    times = []
+    # iterate from start time to end time and append to times list 
+    current = start_time
+    while current <= end_time:
+        current += timedelta(seconds=600)
+        back_to_string = dt.strftime(current, '%Y-%m-%d%H:%M:%S')
+        grafana_string = back_to_string[:10] + "T" + back_to_string[10:] + ".000Z"
+        times.append(grafana_string)
+    return times
 
 
 def convert_KiB_to_GiB(memory):
@@ -7,15 +26,18 @@ def convert_KiB_to_GiB(memory):
     return round((memory / 1048576), 2)
 
 
-def nodes_at_timestamp(matrix, timestamp):
+def memory_at_timestamp(matrix, timestamp):
     """Return matrix containing node info at timestamp."""
-    timestamp_matrix = []
+    output_matrix = []
     for row in matrix:
         if timestamp in row[1]:
             if row[2] != 'null':
                 row[2] = convert_KiB_to_GiB(float(row[2]))
-            timestamp_matrix.append(row)
-    return timestamp_matrix
+            row[1] = row[2]
+            del(row[2])
+            output_matrix.append(row)
+
+    return output_matrix
 
 
 def main(script):
@@ -24,26 +46,28 @@ def main(script):
         # ensure user entered csv file and timestamp
         csv_file = sys.argv[1]
         date = sys.argv[2]
-        time = sys.argv[3]
+        start_time = sys.argv[3]
+        end_time = sys.argv[4]
+        interval = sys.argv[5]
     except IndexError:
-        print('python3 memory_per_node.py [csv_file] [timestamp]')
+        print('python3 app_execution_memory_csv.py [csv_file] [date] [start_time] [end_time] [time_increment]')
     else:
-        # convert python timestamp to work with grafana timestamp
-        timestamp = date+'T'+time[:9]+'000Z'
-
+        # generate time series that will be extracted from grafana csv
+        time_series = times(date, start_time, end_time, interval)
         # read in grafana csv file
         with open(csv_file, 'r') as file_input:
             file_reader = csv.reader(file_input, delimiter=';')
             # create matrix from csv file
             matrix = [line for line in file_reader]
-        # create matrix only containing info for specific timestamp
-        timestamp_matrix = nodes_at_timestamp(matrix, timestamp)
+
+        # start with populating the header with the appropriate timestamp and the row containing memory data
+        matrix = memory_at_timestamp(matrix, start_time)
 
         # write to csv file
-        with open('data/memory_per_node_at_'+date+time[:8]+'.csv', 'w') as file_output:
+        with open('data/memory_per_node_at_' + start_time + '.csv', 'w') as file_output:
             file_writer = csv.writer(file_output, delimiter=',', quotechar='', quoting=csv.QUOTE_NONE)
             file_writer.writerow(['Node', 'Time','Memory(GiB)'])
-            file_writer.writerows(timestamp_matrix)
+            file_writer.writerows(matrix)
 
 
 if __name__ == "__main__":
