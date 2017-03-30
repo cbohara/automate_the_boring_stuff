@@ -4,7 +4,6 @@ import csv
 
 def node_at_timestamp(matrix, timestamp):
     """Return matrix containing node info at timestamp."""
-    timestamp_matrix = [timestamp]
     for row in matrix:
         if timestamp in row[1]:
             timestamp_matrix.append(row)
@@ -18,7 +17,7 @@ def main(script):
         csv_file = sys.argv[1]
         timestamp = sys.argv[2]
     except IndexError:
-        print('python3 memory_per_node.py [csv_file] [timestamp]')
+        print('python3 memory_at_timestamp_csv.py [csv_file] [timestamp]')
     else:
         # read in csv file
         with open(csv_file, 'r') as file_input:
