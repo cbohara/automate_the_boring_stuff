@@ -2,13 +2,14 @@ import sys
 import csv
 
 
-def node_per_timestamp(matrix, timestamp):
-    """Filter out input matrix so only row with timestamp in each node is returned."""
+def node_at_timestamp(matrix, timestamp):
+    """Return matrix containing node info at timestamp."""
     timestamp_matrix = []
     for row in matrix:
         if timestamp in row[1]:
             timestamp_matrix.append(row)
     return timestamp_matrix
+
 
 def main(script):
     """Create csv file containing node memory info for specific time."""
@@ -26,8 +27,7 @@ def main(script):
             matrix = [line for line in file_reader]
 
         # create matrix only containing info for specific timestamp
-        timestamp_matrix = node_per_timestamp(matrix, timestamp)
-
+        timestamp_matrix = node_at_timestamp(matrix, timestamp)
         # write to csv file
         with open('data/'+timestamp, 'w') as file_output:
             file_writer = csv.writer(file_output, delimiter=',', quotechar='', quoting=csv.QUOTE_NONE)
