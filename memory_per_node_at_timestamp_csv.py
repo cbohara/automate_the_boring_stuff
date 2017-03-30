@@ -15,8 +15,6 @@ def nodes_at_timestamp(matrix, timestamp):
             if row[2] != 'null':
                 row[2] = convert_KiB_to_GiB(float(row[2]))
             timestamp_matrix.append(row)
-    for row in timestamp_matrix:
-        print(row)
     return timestamp_matrix
 
 
