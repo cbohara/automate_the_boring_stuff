@@ -2,16 +2,11 @@ import sys
 import csv
 
 
-def node_per_timestamp(matrix):
+def node_per_timestamp(matrix, timestamp):
     """Filter out input matrix so only one row for each node is returned."""
-    output_matrix = []
-    index = 1
-    current_node_name = matrix[index][0]
     for row in matrix:
-        if row[0] == current_node_name:
-            output_matrix.append(row)
-            index += 1
-            print(index)
+        if timestamp in row[2]:
+            print(timestamp)
 
 
 def main(script):
@@ -19,7 +14,7 @@ def main(script):
     try:
         # ensure user entered csv file and timestamp
         csv_file = sys.argv[1]
-        timestap = sys.argv[2]
+        timestamp = sys.argv[2]
     except IndexError:
         print('python3 unique_rows.py [csv_file] [timestamp]')
     else:
@@ -29,7 +24,7 @@ def main(script):
             # create matrix from csv file
             matrix = [line for line in file_reader]
 
-    node_per_timestamp(matrix)
+    node_per_timestamp(matrix, timestamp)
 
 
 if __name__ == "__main__":
