@@ -15,6 +15,8 @@ def nodes_at_timestamp(matrix, timestamp):
             if row[2] != 'null':
                 row[2] = convert_KiB_to_GiB(float(row[2]))
             timestamp_matrix.append(row)
+    for row in timestamp_matrix:
+        print(row)
     return timestamp_matrix
 
 
@@ -28,17 +30,21 @@ def main(script):
     except IndexError:
         print('python3 memory_per_node.py [csv_file] [timestamp]')
     else:
+        # convert python timestamp to work with grafana timestamp
+        timestamp = date+'T'+time[:9]+'000Z'
+
         # read in grafana csv file
         with open(csv_file, 'r') as file_input:
             file_reader = csv.reader(file_input, delimiter=';')
             # create matrix from csv file
             matrix = [line for line in file_reader]
-
+            for row in matrix:
+                print(row[1])
         # create matrix only containing info for specific timestamp
         timestamp_matrix = nodes_at_timestamp(matrix, timestamp)
 
         # write to csv file
-        with open('data/memory_per_node_at_'+timestamp+'.csv', 'w') as file_output:
+        with open('data/memory_per_node_at_'+date+time[:8]+'.csv', 'w') as file_output:
             file_writer = csv.writer(file_output, delimiter=',', quotechar='', quoting=csv.QUOTE_NONE)
             file_writer.writerow(['Node', 'Time','Memory(GiB)'])
             file_writer.writerows(timestamp_matrix)
