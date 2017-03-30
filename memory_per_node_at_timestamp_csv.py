@@ -38,8 +38,6 @@ def main(script):
             file_reader = csv.reader(file_input, delimiter=';')
             # create matrix from csv file
             matrix = [line for line in file_reader]
-            for row in matrix:
-                print(row[1])
         # create matrix only containing info for specific timestamp
         timestamp_matrix = nodes_at_timestamp(matrix, timestamp)
 
