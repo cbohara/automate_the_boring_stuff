@@ -23,7 +23,8 @@ def main(script):
     try:
         # ensure user entered csv file and timestamp
         csv_file = sys.argv[1]
-        timestamp = sys.argv[2]
+        date = sys.argv[2]
+        time = sys.argv[3]
     except IndexError:
         print('python3 memory_per_node.py [csv_file] [timestamp]')
     else:
