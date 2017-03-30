@@ -4,7 +4,7 @@ import csv
 
 def node_at_timestamp(matrix, timestamp):
     """Return matrix containing node info at timestamp."""
-    timestamp_matrix = []
+    timestamp_matrix = [timestamp]
     for row in matrix:
         if timestamp in row[1]:
             timestamp_matrix.append(row)
