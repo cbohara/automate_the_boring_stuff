@@ -29,14 +29,17 @@ def convert_KiB_to_GiB(memory):
 def memory_at_time(matrix, time_series):
     """Return matrix containing node info at timestamp."""
     output_matrix = []
+    node_names = []
     for time in time_series:
         for row in matrix:
             if str(time) in str(row[1]):
                 if row[2] != 'null':
                     row[2] = convert_KiB_to_GiB(float(row[2]))
-                row[1] = row[2]
-                del(row[2])
+#                row[1] = row[2]
+#                del(row[2])
                 output_matrix.append(row)
+    for row in output_matrix:
+        print(row)
     return output_matrix
 
 
