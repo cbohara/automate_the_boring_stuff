@@ -74,6 +74,8 @@ def filter_for_times(matrix, times):
             if str(time) in str(row[1]):
                 if row[2] != 'null':
                     row[2] = convert_KiB_to_GiB(row[2])
+                else:
+                    row[2] = 0
                 output_matrix.append(row)
     return output_matrix
 
@@ -121,7 +123,7 @@ def main(script):
         frequency = sys.argv[6]
         window = sys.argv[7]
     except IndexError:
-        print('python3 memory_streaming_csv.py [csv_file] [start_date] [start_time] [end_date] [end_time] [data collection frequency(sec)] [window interval(sec)]')
+        print('python3 memory_streaming_csv.py [csv file] [utc start date ex: 2017-01-01] [utc start time ex: 01:01:01] [utc end date] [utc end time] [data frequency(sec)] [window interval(sec)]')
     else:
         # read in grafana csv file
         with open(csv_file, 'r') as file_input:
