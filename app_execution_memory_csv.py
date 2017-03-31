@@ -26,22 +26,22 @@ def convert_KiB_to_GiB(memory):
     return round((memory / 1048576), 2)
 
 
-def memory_at_timestamp(matrix, timestamp):
+def memory_at_time(matrix, time_series):
     """Return matrix containing node info at timestamp."""
     output_matrix = []
-    for row in matrix:
-        if timestamp in row[1]:
-            if row[2] != 'null':
-                row[2] = convert_KiB_to_GiB(float(row[2]))
-            row[1] = row[2]
-            del(row[2])
-            output_matrix.append(row)
-
+    for time in time_series:
+        for row in matrix:
+            if str(time) in str(row[1]):
+                if row[2] != 'null':
+                    row[2] = convert_KiB_to_GiB(float(row[2]))
+                row[1] = row[2]
+                del(row[2])
+                output_matrix.append(row)
     return output_matrix
 
 
 def main(script):
-    """Create csv file containing node memory info for specific time."""
+    """Create csv file containing node memory data for specific times."""
     try:
         # ensure user entered csv file and timestamp
         csv_file = sys.argv[1]
@@ -52,22 +52,22 @@ def main(script):
     except IndexError:
         print('python3 app_execution_memory_csv.py [csv_file] [date] [start_time] [end_time] [time_increment]')
     else:
-        # generate time series that will be extracted from grafana csv
-        time_series = times(date, start_time, end_time, interval)
         # read in grafana csv file
         with open(csv_file, 'r') as file_input:
             file_reader = csv.reader(file_input, delimiter=';')
             # create matrix from csv file
             matrix = [line for line in file_reader]
 
-        # start with populating the header with the appropriate timestamp and the row containing memory data
-        matrix = memory_at_timestamp(matrix, start_time)
+        # generate header including list of times that need to be found in grafana csv 
+        time_series = times(date, start_time, end_time, interval)
+
+        # find node data for times in time_series
+        output_matrix = memory_at_time(matrix, time_series)
 
         # write to csv file
         with open('data/memory_per_node_at_' + start_time + '.csv', 'w') as file_output:
             file_writer = csv.writer(file_output, delimiter=',', quotechar='', quoting=csv.QUOTE_NONE)
-            file_writer.writerow(['Node', 'Time','Memory(GiB)'])
-            file_writer.writerows(matrix)
+            file_writer.writerows(output_matrix)
 
 
 if __name__ == "__main__":
