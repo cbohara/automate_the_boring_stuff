@@ -55,15 +55,15 @@ def filter_for_times(matrix, times):
 
 
 def filter_by_node(matrix, nodes):
-    # add times for node to its own array, and then add to final output matrix
-    final_output = []
+    """Return matrix that will be converted into the final csv file."""
+    final_matrix = []
     for node in nodes:
         node_array =[node]
         for row in matrix:
             if node == row[0]:
                 node_array.append(row[2])
-        final_output.append(node_array)
-    return final_output
+        final_matrix.append(node_array)
+    return final_matrix
 
 
 def main(script):
@@ -94,8 +94,9 @@ def main(script):
         # need to get filtered matrix into desired output format
         final_output = filter_by_node(filtered_matrix, nodes)
         # write to csv file
-        with open('data/memory_per_node_at_' + start_time + '.csv', 'w') as file_output:
+        with open('data/'+start_date+"_"+start_time+'.csv', 'w') as file_output:
             file_writer = csv.writer(file_output, delimiter=',', quotechar='', quoting=csv.QUOTE_NONE)
+            file_writer.writerow(['Node name'] + [time[11:19] for time in times])
             file_writer.writerows(final_output)
 
 
