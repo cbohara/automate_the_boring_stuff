@@ -77,7 +77,7 @@ def main(script):
         end_time = sys.argv[5]
         interval = sys.argv[6]
     except IndexError:
-        print('python3 app_execution_memory_csv.py [csv_file] [start_date] [start_time] [end_date] [end_time] [increment (seconds)]')
+        print('python3 memory_time_interval_csv.py [csv_file] [start_date] [start_time] [end_date] [end_time] [increment (seconds)]')
     else:
         # read in grafana csv file
         with open(csv_file, 'r') as file_input:
