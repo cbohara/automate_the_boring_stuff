@@ -1,0 +1,51 @@
+import sys
+import re
+import csv
+import os
+
+
+def main(script):
+    """Grab necessary data from txt file and save into csv file."""
+    # create folder where all results files will be written
+    os.makedirs("results", exist_ok=True)
+
+    # loop through files in cwd
+    for cwd_file in os.listdir("."):
+        if not cwd_file.endswith(".csv"):
+            continue
+
+        # read in txt file that contains results 
+        txt_file = open(cwd_file)
+        txt_content = cwd_file.read()
+        cwd_file.close()
+
+        # create regex and create list of dates 
+        timestamp_regex = re.compile(r'\d\d\d\d-\d\d-\d\d\s\d\d\:\d\d\:\d\d\.\d\d\d\d\d\d')
+        timestamps = timestamp_regex.findall(txt_content)
+
+        # find result times
+        results_regex = re.compile(r'\[(.+?)\]')
+        results = results_regex.findall(txt_content)
+
+        # create matrix of result times
+        matrix = []
+        for result in results:
+            result_list = [int(num) for num in result.split(',')]
+            matrix.append(result_list)
+
+        # input corresponding timestamp at the beginning of results row 
+        for i, row in enumerate(matrix):
+            row.insert(0, timestamps[i])
+
+        # create csv file and write matrix to csv file
+        with open("results/" + cwd_file[:-3]  + ".csv", "w", newline="") as csv_file:
+            writer = csv.writer(csv_file)
+            writer.writerow(['Timestamp'] + list(range(1, len(matrix[0])+1)))
+            for row in matrix:
+                writer.writerow(row)
+
+        csv_file.close()
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))
