@@ -11,10 +11,13 @@ def main(script):
         if not txt_file.endswith(".txt"):
             continue
 
+        # create variable to store new csv file name
+        csv_name = str(txt_file[:-4]) + ".csv"
+
         # read in txt file that contains results 
-        txt_file = open(cwd_file)
-        txt_content = cwd_file.read()
-        cwd_file.close()
+        txt_file = open(os.path.join("/home/cohara/github/automate/data/time_txt/", txt_file))
+        txt_content = txt_file.read()
+        txt_file.close()
 
         # create regex and create list of dates 
         timestamp_regex = re.compile(r'\d\d\d\d-\d\d-\d\d\s\d\d\:\d\d\:\d\d\.\d\d\d\d\d\d')
@@ -35,9 +38,9 @@ def main(script):
             row.insert(0, timestamps[i])
 
         # create csv file and write matrix to csv file
-        with open("/home/cohara/github/automate/data/time_csv/" + cwd_file[:-3] + ".csv", "w", newline="") as csv_file:
+        with open(os.path.join("/home/cohara/github/automate/data/time_csv/", csv_name), "w", newline="") as csv_file:
             writer = csv.writer(csv_file)
-            writer.writerow(['Timestamp'] + list(range(1, len(matrix[0])+1)))
+            writer.writerow(['Timestamp'] + list(range(1, len(matrix[0]))))
             for row in matrix:
                 writer.writerow(row)
 
