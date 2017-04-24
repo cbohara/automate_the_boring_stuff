@@ -26,9 +26,7 @@ def main(script):
 
     # input corresponding timestamp at the beginning of results row 
     for i, row in enumerate(matrix):
-        for t, timestamp in enumerate(timestamps):
-            if i == t:
-                row.insert(0, timestamp)
+        row.insert(0, timestamps[i])
 
     # create csv file and write matrix to csv file
     with open("data/results.csv", "w", newline="") as csv_file:
