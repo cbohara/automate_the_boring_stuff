@@ -6,8 +6,7 @@ import csv
 def main(script):
     """Grab necessary data from txt file and save into csv file."""
     # read in txt file that contains results 
-    txt_file = open("/home/cohara/github/automate/data/output_L13T.txt")
-
+    txt_file = open("data/output_L13T.txt")
     txt_content = txt_file.read()
     txt_file.close()
 
@@ -30,9 +29,8 @@ def main(script):
         row.insert(0, timestamps[i])
 
     # create csv file and write matrix to csv file
-    with open("/home/cohara/github/automate/data/results.csv", "w", newline="") as csv_file:
+    with open("data/results.csv", "w", newline="") as csv_file:
         writer = csv.writer(csv_file)
-        writer.writerow(['Timestamp'] + list(range(1, len(matrix[0])+1)))
         for row in matrix:
             writer.writerow(row)
 
