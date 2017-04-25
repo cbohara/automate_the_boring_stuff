@@ -40,7 +40,7 @@ def main(script):
         # create csv file and write matrix to csv file
         with open(os.path.join("/home/cohara/github/automate/data/time_csv/", csv_name), "w", newline="") as csv_file:
             writer = csv.writer(csv_file)
-            writer.writerow(['Timestamp'] + list(range(1, len(matrix[0]))))
+            writer.writerow(["Timestamp"] + list(range(1, len(matrix[0]))))
             for row in matrix:
                 writer.writerow(row)
 
