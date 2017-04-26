@@ -3836,12 +3836,12 @@ print("""-------- Query Finished. --------
 benchmark_version = "L1_1M"
 
 if not os.path.exists("/home/cohara/github/automate/data/" + benchmark_version + ".csv"):
-    with open("/home/cohara/github/automate/data/" + benchmark_version + ".csv", "w", newline="") as csv_file:
+    with open("/home/cohara/github/automate/data/" + benchmark_version + ".csv", "w") as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(["Timestamp"] + list(range(1, len(runtimes)+1)))
         csv_file.close()
 
-with open("/home/cohara/github/automate/data/" + benchmark_version + ".csv", "a", newline="") as csv_file:
+with open("/home/cohara/github/automate/data/" + benchmark_version + ".csv", "a") as csv_file:
     writer = csv.writer(csv_file)
     writer.writerow([datetime.now()] + runtimes)
     csv_file.close()
