@@ -3836,7 +3836,7 @@ benchmark_or_baseline = "LOL"
 level = "L1"
 data_size = "1M"
 file_path = "./results/"+benchmark_or_baseline+"_"+level+"_"+data_size+".csv"
-print(file_path)
+
 # make a folder to store results if it does not already exist
 if not os.path.exists("./results/"):
     os.makedirs("./results/")
