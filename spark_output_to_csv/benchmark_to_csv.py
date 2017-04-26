@@ -3833,20 +3833,20 @@ url += "[" + ",".join(str(run) for run in runtimes) + "]"
 print("""-------- Query Finished. --------
 -------- Benchmark Results Viewer: {} --------""".format(url))
 
-bench_or_base = "benchmark"
+benchmark_or_baseline = "benchmark"
 level = "L1"
 data_size = "1M"
 
-if not os.path.exists("./results/"+bench_or_base+"/"):
-    os.makedirs("./results/"+bench_or_base+"/")
+if not os.path.exists("./results/"+benchmark_or_baseline+"/"):
+    os.makedirs("./results/"+benchmark_or_baseline+"/")
 
-if not os.path.exists("./results/"+bench_or_base+"/"+level+"_"+data_size+".csv"):
-    with open("./results/"+bench_or_base+"/"+level+"_"+data_size+".csv", "w") as csv_file:
+if not os.path.exists("./results/"+benchmark_or_baseline+"/"+level+"_"+data_size+".csv"):
+    with open("./results/"+benchmark_or_baseline+"/"+level+"_"+data_size+".csv", "w") as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(["Timestamp"] + list(range(1, len(runtimes)+1)))
         csv_file.close()
 
-with open("./results/"+bench_or_base+"/"+level+"_"+data_size+".csv", "a") as csv_file:
+with open("./results/"+benchmark_or_baseline+"/"+level+"_"+data_size+".csv", "a") as csv_file:
     writer = csv.writer(csv_file)
     writer.writerow([datetime.now()] + runtimes)
     csv_file.close()
