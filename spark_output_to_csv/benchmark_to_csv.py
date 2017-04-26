@@ -3837,16 +3837,17 @@ benchmark_or_baseline = "benchmark"
 level = "L1"
 data_size = "1M"
 
+# make a folder to store results if it does not already exist
 if not os.path.exists("./results/"):
     os.makedirs("./results/")
 
+# if the csv file doesn't already exist, create a csv file with the appropriate first row
 if not os.path.exists("./results/"+benchmark_or_baseline+"_"+level+"_"+data_size+".csv"):
     with open("./results/"+benchmark_or_baseline+"_"+level+"_"+data_size+".csv", "w") as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(["Timestamp"] + list(range(1, len(runtimes)+1)))
-        csv_file.close()
 
+# append the output of the run to the csv file
 with open("./results/"+benchmark_or_baseline+"_"+level+"_"+data_size+".csv", "a") as csv_file:
     writer = csv.writer(csv_file)
     writer.writerow([datetime.now()] + runtimes)
-    csv_file.close()
