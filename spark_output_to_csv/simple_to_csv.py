@@ -1,5 +1,4 @@
 import os
-import csv
 from datetime import datetime, time
 from pyspark.sql import SparkSession
 
@@ -3833,22 +3832,26 @@ url += "[" + ",".join(str(run) for run in runtimes) + "]"
 print("""-------- Query Finished. --------
 -------- Benchmark Results Viewer: {} --------""".format(url))
 
-benchmark_or_baseline = "benchmark"
+benchmark_or_baseline = "LOL"
 level = "L1"
 data_size = "1M"
 file_path = "./results/"+benchmark_or_baseline+"_"+level+"_"+data_size+".csv"
-
+print(file_path)
 # make a folder to store results if it does not already exist
 if not os.path.exists("./results/"):
     os.makedirs("./results/")
 
 # if the csv file doesn't already exist, create a csv file with the appropriate first row
 if not os.path.exists(file_path):
-    with open(file_path, "w") as csv_file:
-        writer = csv.writer(csv_file)
-        writer.writerow(["Timestamp"] + list(range(1, len(runtimes)+1)))
+    with open(file_path, "w") as f:
+        header = ["Timestamp"] + list(range(1, len(runtimes)+1))
+        for value in header:
+            f.write(str(value)+",")
+        f.write("\n")
 
 # append the output of the run to the csv file
-with open(file_path, "a") as csv_file:
-    writer = csv.writer(csv_file)
-    writer.writerow([datetime.now()] + runtimes)
+with open(file_path, "a") as f:
+    results = [datetime.now()] + runtimes
+    for value in results:
+        f.write(str(value)+",")
+    f.write("\n")
