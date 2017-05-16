@@ -4,7 +4,7 @@ import re
 
 def main(script):
     """ Pull out runtime data from stdout of incomplete Spark job."""
-    with open("/home/cohara/github/automate/data/vanilla_stdout.txt") as stdout:
+    with open("/home/cohara/github/automate/data/vanilla_stdout2.txt") as stdout:
         runtimes = []
         lines = stdout.readlines()
         regex = re.compile(r'Runtime\: (\d+) seconds')
