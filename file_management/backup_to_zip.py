@@ -2,6 +2,7 @@
 import sys
 import os
 import zipfile
+import time
 
 
 def main(args):
@@ -12,20 +13,9 @@ def main(args):
         print("python3 backup_to_zip.py [folder in cwd]")
     else:
         folder = os.path.relpath(folder)
+        todays_date = time.strftime("%m%d%Y")
+        zipfile_name = os.path.basename(folder) + "_" + todays_date + ".zip"
 
-        # determine the next increment value to attach to filename
-        n = 1
-        while True:
-            zipfile_name = os.path.basename(folder) + str(n) + ".zip"
-
-            # if the filename does not exist yet, this will be the filename n
-            if not os.path.exists(zipfile_name):
-                break
-            # otherwise increment n and check again
-            n += 1
-
-        # create zip file
-        print("Creating {}".format(zipfile_name))
         with zipfile.ZipFile(zipfile_name, "w") as backup:
             # walk the folder tree and compress the files in each folder
             for foldername, subfolders, filenames in os.walk(folder):
