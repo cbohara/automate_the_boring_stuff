@@ -1,6 +1,7 @@
 #!/usr/local/bin/python3
 import os
 import sys
+import time
 import requests
 import bs4
 import threading
@@ -46,8 +47,11 @@ def main():
 
     # keep track of thread objects
     threads = []
+
+    start_time = time.time()
+
     # loop through all 1900 comics, with each thread downloading 100 comics 
-    for i in range(1, 100, 100):
+    for i in range(1, 1900, 100):
         download_thread = threading.Thread(target=download_xkcd, args=(i, i+99))
         threads.append(download_thread)
         download_thread.start()
@@ -56,9 +60,12 @@ def main():
     for thread_obj in threads:
         # this blocks the main thread until each thread terminates
         thread_obj.join()
-    # does not print until all the join calls have returned
-    print("Completed")
 
+    # calculate total run time
+    end_time = time.time()
+    total_sec = round(end_time - start_time, 2)
+    # does not print until all the join calls have returned
+    print("Downloaded all xkcd comics in {} seconds.".format(total_sec))
 
 
 if __name__ == "__main__":
