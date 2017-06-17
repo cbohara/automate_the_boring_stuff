@@ -1,34 +1,26 @@
 #!/usr/local/bin/python3
 import sys
+import os
 import time
-import subprocess
 
-
-BELL = "/Users/cbohara/code/automate/timer/bell.mp3"
-THUNDER = "/Users/cbohara/code/automate/timer/thunder.mp3"
-
-
-def play(duration, sound):
-    """Play sound for specified duration of time."""
-    cmd = ["open", sound]
-    p = subprocess.Popen(cmd)
-    time.sleep(duration)
-    p.kill()
 
 def main(args):
     """Build simple pomodoro timer."""
     try:
+        iterations = int(sys.arg[3])+1
         work_min = int(sys.argv[1])
         rest_min = int(sys.argv[2])
     except IndexError:
-        print("python3 pomodoro.py [work duration] [rest duration]")
+        print("python3 pomodoro.py [number of cycles] [work duration] [rest duration]")
     else:
-        # display text to stdout
-        display = lambda x: sys.stdout.write(str(x) + "\n")
-
-        # start timer
-        display("Work for {} minutes".format(work_min))
-        play(work_min*60, THUNDER)
+        for i in range(iterations):
+            # start working
+            os.system(say "Start working")
+            time.sleep(work_min*60)
+            # stop working and start rest
+            os.system(say "Break time")
+            time.sleep(rest_min*60)
+        os.system(say "Study time over")
 
 
 if __name__ == "__main__":
