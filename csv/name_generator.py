@@ -18,7 +18,7 @@ def main(args):
             del students[0]
 
             # choose number of winners based on the input number
-            for i in range(number_of_winners + 1):
+            for i in range(number_of_winners):
                 # find current winner
                 current = random.choice(students)
                 # print current winner
