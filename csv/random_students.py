@@ -4,7 +4,7 @@ import random
 
 
 def main(args):
-    """Read in csv file, grab student names, and generate random student names based on input number."""
+    """Read in csv file, grab student names, and choose random student names."""
     try:
         number_of_winners = int(sys.argv[1])
     except IndexError:
@@ -12,9 +12,9 @@ def main(args):
     else:
         with open('/Users/cbohara/code/automate/data/dg2017.csv', 'r') as f:
             f_reader = csv.reader(f)
-            # create list of students
+            # create list of students from csv file
             students = [line[3] for line in f_reader]
-            # delete the header
+            # delete the csv header
             del students[0]
 
             # choose number of winners based on the input number
