@@ -42,7 +42,7 @@ def main(args):
             print final
 
         else:
-            print "\nSegment not found in header\n"
+            print "\nError: Segment not found in header\n"
 
 
 if __name__ == "__main__":
