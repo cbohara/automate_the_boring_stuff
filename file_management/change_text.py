@@ -16,6 +16,8 @@ def main(args):
         files = os.listdir(current_dir)
         # loop through files and print file name to terminal if it contains text
         for filename in files:
+            if os.path.isdir(filename):
+                continue
             lines = []
             with open(filename) as fin:
                 for line in fin:
