@@ -28,8 +28,8 @@ def main(args):
                     segment_found = True
                     found_segments.append(segment)
 
-        duration = (time.time() - start_time)/60
-        print duration
+        duration = round(((time.time() - start_time)/60), 0)
+        print duration + " seconds"
         print found_segments
         print segment_found
 
