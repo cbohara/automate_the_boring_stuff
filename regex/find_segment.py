@@ -10,7 +10,7 @@ def main(args):
     try:
         target_segments = sys.argv[1]
     except IndexError:
-        print "\ngzip -dc <FILENAME>.txt.gz | python threshold.py [segment1,segment2,segment3]\n"
+        print "\ngzip -dc <FILENAME>.txt.gz | python find_segment.py SEGMENT1=T,SEGMENT2=T,SEGMENT3=T\n"
     else:
         start_time = time.time()
         target_list = target_segments.split(',')
