@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 import sys
 import re
 
@@ -7,26 +6,29 @@ import re
 def main(args):
     """ Retreive threshold values to paste into hadoop config """
     try:
-        target_segment = sys.argv[1]
+        input_targets = sys.argv[1]
     except IndexError:
-        print "\ngzip -dc /mnt/tmp/mf/<FILENAME>.txt.gz | head -n 1 | python threshold.py [segment]\n"
+        print "\ngzip -dc <FILENAME>.txt.gz | head -1 | python threshold.py segment1,segment2,segment3\n"
     else:
-        # read in from `gzip -dc <FILENAME> | head -n 1 | `
+        # transform target segments to one regex for efficiency
+        input_list = input_targets.split(',')
+        regex_boundary = ["\\b" + x + "\\b" for x in input_list]
+        regex_string = "|".join(regex_boundary)
+        regex = re.compile(regex_string)
+
         stdin = sys.stdin.read()
-        # create list of segments
+        # create list of segments from input file
         header = stdin.split("|")
         # remove column title
         del header[0]
 
-        # using \b boundary to ensure that only the exact target statement matches
-        segment_regex = re.compile('\\b' + target_segment + '\\b')
 
-        # flag to ensure match is found
+        # flag to ensure match is found to avoid unnecessary compute
         segment_found = False
         # store threshold values
         threshold = []
         for segment in header:
-            if segment_regex.search(segment):
+            if regex.search(segment):
                 segment_found = True
                 threshold.append(1)
             else:
