@@ -6,11 +6,14 @@ def main(args):
     for row in sys.stdin:
         row = row[:-1]
         row = row.split('|')
-        print(row)
         if row[1] == '1' or row[2] == '1':
+            # print to stdout > output.txt
+            print(row[0] + "|1")
             count += 1
 
-    print(count)
+    # store final count
+    with open('count.txt','a') as f:
+        f.write("Total records: " + str(count) + "\n")
 
 
 if __name__ == "__main__":
