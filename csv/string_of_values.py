@@ -6,12 +6,17 @@ def main(args):
     """
     Transform single column of values into a string of values
     """
-    with open('SS-1883.csv') as f:
-        content = f.readlines()
-        del content[0]
-        content = [x[:-1] for x in content]
-        output = ','.join(content)
-        print output
+    try:
+        filename = sys.argv[1]
+    except IndexError:
+        print 'python string_of_values.py [filename]'
+    else:
+        with open(filename) as f:
+            content = f.readlines()
+            del content[0]
+            content = [x[:-1] for x in content]
+            output = ','.join(content)
+            print output
 
 
 if __name__ == "__main__":
