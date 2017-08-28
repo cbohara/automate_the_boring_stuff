@@ -14,6 +14,7 @@ def main(args):
         with open(filename) as f:
             content = f.readlines()
             del content[0]
+            content[-1] = content[-1]+"\n"
             content = [x[:-1] for x in content]
             output = ','.join(content)
             print output
