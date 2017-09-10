@@ -15,7 +15,6 @@ def process_csv(csv_file):
         if row_number == 1:
             header = row
             header = [word.lower() for word in header]
-            print(header)
             continue
         key_value_tuples = []
         for i in range(len(header)):
