@@ -99,11 +99,11 @@ def main(args):
         # push each message to sqs 
         for msg in msgs:
             pass
-#            response = queue.send_message(MessageBody=msg)
-#            msgID = response.get('MessageID')
-#            md5 = reponse.get('MD5OfMessageBody')
+            response = queue.send_message(MessageBody=msg)
+            msgID = response.get('MessageID')
+            md5 = reponse.get('MD5OfMessageBody')
             print msg
-#            print "successfully added to queue with MessageId " + msgID + " and MD5OfMessageBody " + md5
+            print "successfully added to queue with MessageId " + msgID + " and MD5OfMessageBody " + md5
 
 
 if __name__ == "__main__":
