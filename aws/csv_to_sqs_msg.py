@@ -30,7 +30,7 @@ def date_plus_index(default_date, index):
 
 def main(args):
     """
-    script to submit VA audience to SQS queue
+    script to submit data from csv as message to SQS queue
 
     requirements:
     - awscli
