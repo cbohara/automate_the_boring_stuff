@@ -1,6 +1,6 @@
-This repo contains notes from my favorite Python book
-Automate the Boring Stuff 
-by Al Sweigart
-https://automatetheboringstuff.com/
+### Automate the Boring Stuff
 
-I also use this repo to store automation scripts
+Initially this repo was created to store code examples inspired by my favorite Python book
+[Automate the Boring Stuff](https://automatetheboringstuff.com/) by Al Sweigart.
+
+As time goes on, I use it to store general automation scripts.

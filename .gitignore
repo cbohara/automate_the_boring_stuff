@@ -1,5 +1,4 @@
-/spark_output_to_csv/benchmark_to_csv.py
-/spark_output_to_csv/simple_to_csv.py
-/data
-__pycache__/
-.DS_Store
+crontab
+.idea/*
+email/config/*
+email/img/*
