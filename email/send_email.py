@@ -29,9 +29,6 @@ if __name__ == '__main__':
     import configargparse
     from datetime import datetime
 
-    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    print(f'*******\n{timestamp}\n*******\n')
-
     config_parser = configargparse.ArgParser()
     config_parser.add('-c', '--config-file', required=True, is_config_file=True, help='config file path')
 
@@ -45,6 +42,8 @@ if __name__ == '__main__':
     args.add('--email_body', required=True, help='String content of email body')
     args.add('--email_attachment', required=True, help='Path to additional attachment')
 
+    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    print(f'*******\n{timestamp}\n*******\n')
     config = config_parser.parse_args()
     for key, value in vars(config).items():
         print(f'{key} = {value}')

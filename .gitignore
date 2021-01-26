@@ -1,4 +1,4 @@
 crontab
 .idea/*
-email/config/*
+*/config/*
 email/img/*
