@@ -5,6 +5,15 @@ from datetime import datetime
 
 
 def get_all_open_tabs():
+	"""
+	Get all open Chrome tabs
+
+	Args:
+		None
+
+	Returns:
+		set of strings representing open tab names
+	"""
 	all_tabs = set()
 	for index in range(100):
 		try:
@@ -17,15 +26,45 @@ def get_all_open_tabs():
 	return all_tabs
 
 
-def check_tabs_for_blocked_websites(all_open_tabs, blocked_websites):
+def is_watching_blocked_website(all_open_tabs, blocked_websites):
+	"""
+	Check open tabs if currently watching a blocked website
+
+	Args:
+		all_open_tabs (set of strings) open tab names
+		blocked_websites (set of strings) websites to block
+	Returns:
+		boolean
+	"""
 	for tab in all_open_tabs:
 		if any(website in tab for website in blocked_websites):
 			return True
 	return False
 
 
+def kill_process(process):
+	"""
+	Kill running process
+
+	Args:
+		process (dict) representing process attributes
+	Returns:
+		None
+	"""
+	print(f'Killing {process["pid"]}')
+	process = psutil.Process(process['pid'])
+	process.terminate()
+
 
 def get_processes(process_name):
+	"""
+	Get all processes of a certain type
+
+	Args:
+		process_name (string) matching process type to search for
+	Returns:
+		list of dicts representing process attributes
+	"""
 	processes = []
 	for process in psutil.process_iter():
 		try:
@@ -38,13 +77,15 @@ def get_processes(process_name):
 	return processes
 
 
-def kill_process(process):
-	print(f'Killing {process["pid"]}')
-	process = psutil.Process(process['pid'])
-	process.terminate()
-
-
 def kill_chrome():
+	"""
+	Kill running chrome processes to force a hard reset
+
+	Args:
+		None
+	Returns:
+		None
+	"""
 	process_list = get_processes('chrome')
 	for process in process_list:
 		try:
@@ -73,7 +114,7 @@ if __name__ == '__main__':
 	blocked_websites = set(website.strip() for website in config.websites.split(','))
 	print(f'blocked_websites: {blocked_websites}')
 
-	watching_blocked_website = check_tabs_for_blocked_websites(all_open_tabs, blocked_websites)
+	watching_blocked_website = is_watching_blocked_website(all_open_tabs, blocked_websites)
 
 	if watching_blocked_website:
 		print('Watching blocked website - Killing chrome')
