@@ -17,6 +17,14 @@ def get_all_open_tabs():
 	return all_tabs
 
 
+def check_tabs_for_blocked_websites(all_open_tabs, blocked_websites):
+	for tab in all_open_tabs:
+		if any(website in tab for website in blocked_websites):
+			return True
+	return False
+
+
+
 def get_processes(process_name):
 	processes = []
 	for process in psutil.process_iter():
@@ -62,14 +70,13 @@ if __name__ == '__main__':
 	all_open_tabs = get_all_open_tabs()
 	print(f'all_open_tabs: {all_open_tabs}')
 
-	websites_to_block = set(f'www.{website.strip()}.com' for website in config.websites.split(','))
-	print(f'websites_to_block: {websites_to_block}')
+	blocked_websites = set(website.strip() for website in config.websites.split(','))
+	print(f'blocked_websites: {blocked_websites}')
 
-	watching_blocked_website = (all_open_tabs & websites_to_block)
-	print(f'watching_blocked_website: {watching_blocked_website}')
+	watching_blocked_website = check_tabs_for_blocked_websites(all_open_tabs, blocked_websites)
 
 	if watching_blocked_website:
-		print('Killing chrome')
+		print('Watching blocked website - Killing chrome')
 		kill_chrome()
 	else:
-		print('Not killing chrome')
+		print('Not watching blocked website - Not killing chrome')
