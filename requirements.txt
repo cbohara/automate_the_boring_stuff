@@ -9,7 +9,7 @@ google-auth==1.24.0
 google-auth-oauthlib==0.4.2
 gspread==3.6.0
 idna==2.10
-lxml==4.6.2
+lxml==4.6.5
 oauthlib==3.1.0
 premailer==3.7.0
 psutil==5.8.0
