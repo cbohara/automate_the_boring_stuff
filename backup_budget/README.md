@@ -1,4 +1,9 @@
 Running actual budget as desktop app   
+https://actualbudget.org/download   
+
+Using sync of data from accounts using simple fin   
+https://actualbudget.org/docs/advanced/bank-sync/simplefin
+
 Automate backup budget to S3 for safekeeping   
 
 ```bash
