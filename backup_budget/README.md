@@ -20,5 +20,5 @@ AWS_REGION =
 Running as cron job
 
 ```bash
-0 2 * * * cd /Users/charlie/git/automate_the_boring_stuff/backup_budget/ && /Users/charlie/git/automate_the_boring_stuff/backup_budget/venv/bin/python3 /Users/charlie/git/automate_the_boring_stuff/backup_budget/backup.py >> /Users/charlie/git/automate_the_boring_stuff/backup_budget/backup.log 2>&1
+46 14 * * * cd /Users/charlie/git/automate_the_boring_stuff/backup_budget/ && /Users/charlie/git/automate_the_boring_stuff/backup_budget/venv/bin/python3 /Users/charlie/git/automate_the_boring_stuff/backup_budget/backup.py >> /Users/charlie/git/automate_the_boring_stuff/backup_budget/backup.log 2>&1
 ```
