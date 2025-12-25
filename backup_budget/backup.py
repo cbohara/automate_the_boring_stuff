@@ -17,7 +17,8 @@ AWS_REGION = os.getenv('AWS_REGION')
 
 def main():
     # Generate export filename
-    date_str = datetime.now().strftime("%Y-%m-%d")
+    timestamp = datetime.now()
+    date_str = timestamp.strftime("%Y-%m-%d")
     export_filename = f"{date_str}-{ACTUAL_BUDGET_FILE}.zip"
 
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -31,7 +32,7 @@ def main():
         # Upload to S3
         s3_client = boto3.client('s3', region_name=AWS_REGION)
         s3_client.upload_file(export_path, S3_BUCKET, f"{S3_PREFIX}{export_filename}")
-        print(f"s3://{S3_BUCKET}/{S3_PREFIX}{export_filename}")
+        print(f"{timestamp} - s3://{S3_BUCKET}/{S3_PREFIX}{export_filename}")
 
 if __name__ == "__main__":
     main()
